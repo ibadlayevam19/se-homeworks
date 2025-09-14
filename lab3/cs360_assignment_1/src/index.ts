@@ -1,18 +1,22 @@
 import * as express from 'express'
 import * as db from './TranscriptManager'
 
-
+// create the server, call it app
 const app: express.Application =express()
+// the port to listen on
 const PORT=4001
 
+// for parsing application/x-www-form-urlencoded
+// converts foo=bar&baz=quux to {foo: 'bar', baz: 'quux'}
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
+// initialize the server
 db.initialize()
 console.log("Initial list of transcripts:")
 console.log(db.getAll())
 
-//get all students and their transcripts
+// GET /transcripts
 app.get("/transcripts", (req, res) => {
     console.log('Handling GET/transcripts')
     let data=db.getAll()
@@ -30,7 +34,10 @@ app.post("/transcripts", (req, res)=>{
     res.status(200).send({studentName, studentID})
 });
 
-//get transcript of student with given id in params
+// GET  /transcripts/:id           -- 
+// returns transcript for student with given ID.  
+// Fails with a 404 if no such student
+// req.params will look like {"id": 301}
 app.get("/transcripts/:id", (req, res)=>{
     const id=req.params.id
     console.log(`Handling GET/transcripts/:id id=${id}`)
@@ -50,7 +57,9 @@ app.get("/studentids", (req, res)=>{
     res.status(200).send(ids)
 });
 
-//delete student with given id
+// DELETE /transcripts/:ID          
+// deletes transcript for student with the given ID, 
+// fails with 404 if no such student
 app.delete("/transcripts/:id", (req, res)=>{
     const id=parseInt(req.params.id)
     console.log(`Handling DELETE/transcripts, id=${id}`)
