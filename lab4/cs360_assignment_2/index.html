@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Transcript Manager UI</title>
+  <style>
+    body {
+      background: #222;
+      color: white;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    input, button {
+      margin: 5px;
+      padding: 8px;
+      border-radius: 6px;
+      border: none;
+    }
+    button {
+      background: #444;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #666;
+    }
+    pre {
+      background: #111;
+      padding: 15px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Transcript Manager UI</h1>
+
+  <!-- Fetch transcript -->
+  <div>
+    <input id="studentId" placeholder="Student ID" />
+    <button onclick="getTranscript()">Get Transcript</button>
+  </div>
+
+  <!-- Get grade -->
+  <div>
+    <input id="gradeStudentIdGet" placeholder="Student ID" />
+    <input id="courseGet" placeholder="Course" />
+    <button onclick="getGrade()">Get Grade</button>
+  </div>
+
+  <!-- Add student -->
+  <div>
+    <input id="studentName" placeholder="Student Name" />
+    <button onclick="addStudent()">Add Student</button>
+  </div>
+
+  <!-- Add/Update grade -->
+  <div>
+    <input id="gradeStudentIdAdd" placeholder="Student ID" />
+    <input id="courseAdd" placeholder="Course" />
+    <input id="gradeAdd" placeholder="Grade" />
+    <button onclick="addGrade()">Add/Update Grade</button>
+  </div>
+
+  <!-- Find Student IDs -->
+  <div>
+    <input id="searchName" placeholder="Search Name" />
+    <button onclick="findStudentIDs()">Find Student IDs</button>
+  </div>
+
+  <h2>Result:</h2>
+  <pre id="output"></pre>
+
+  <!-- Load the browser-side JS -->
+  <script src="dataService.browser.js"></script>
+  <script src="ui.js"></script>
+</body>
+</html>
+
