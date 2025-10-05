@@ -1,0 +1,4 @@
+Before feedback: My app’s functionality worked, but the layout looked plain and the “To Buy” / “Bought” sections were not visually clear.
+
+After feedback: I improved the styling by organizing components, adding a clean card layout, and applying CSS properly through Vite. Now the app looks more structured and user-friendly while keeping all features functional.
+Also applied some colors for more visiblity.
