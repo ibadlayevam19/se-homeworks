@@ -1,93 +1,96 @@
-(1) Smell #1: Repeated use of ' ' to represent empty tiles
+1 Repeated use of the blank space ' ' for empty tiles
 
-Original lines: 2, 8, 35, 44, 53, etc.
-Example:
+Found at: Lines 2, 8, 35, 44, 53, and others.
 
-private _lastSymbol: string = ' ';
-if (this._board.TileAt(x, y).Symbol !== ' ') { ... }
+The same literal ' ' was scattered throughout the file to represent an empty tile.
 
-
-Refactoring: Added a constant to store the empty symbol:
+How I improved it:
+Created a clear constant at the top of the file:
 
 const EMPTY_SYMBOL = ' ';
 
 
-Improvement:
+Why it’s better:
 
-Avoids magic values scattered through the code.
+Makes the code less error-prone and easier to modify later.
 
-Makes updates easier if the symbol changes later.
+Reduces duplication and clarifies meaning.
 
-Keeps the code more consistent and readable.
+Enhances readability since the intent is explicit.
 
-(2) Smell #2: Repeated logic for checking winners in each row
+2 Repeated logic for checking row winners
 
-Original lines: 35–73 – The same pattern was used multiple times for different rows.
-Refactoring: Moved the repeated part into a helper function:
+Found at: Lines 35–73
+
+Each row was checked manually with almost identical code.
+
+How I improved it:
+Extracted the duplicated code into a helper method:
 
 private checkRow(row: number): string { ... }
 
 
-and iterated through rows inside winner().
-Improvement:
+and replaced the repeated blocks with a simple loop inside winner().
 
-Removes unnecessary repetition (DRY principle).
+Why it’s better:
 
-Easier to maintain or extend (e.g., columns, diagonals).
+Removes repetitive code (DRY principle).
 
-Makes the winner-checking logic more organized.
+Easier to maintain and extend (for columns or diagonals).
 
-(3) Smell #3: Inconsistent method naming style
+The winner() method is now concise and focused.
 
-Original lines: 7, 26
-Refactoring: Adjusted to follow the camelCase style used in TypeScript:
+3 Non-idiomatic method names
 
-public play(...)
-public winner()
+Found at: Lines 7, 26
 
+Methods used PascalCase (Play, Winner) which goes against TypeScript naming conventions.
 
-Improvement:
+How I improved it:
+Renamed them to:
 
-Aligns with TypeScript naming conventions.
-
-Improves code clarity and makes method names intuitive.
-
-(4) Smell #4: Using .find() on a 1D array for board lookups
-
-Original lines: 74–91
-
-this._plays.find((t: Tile) => t.X === x && t.Y === y)
+play()  and  winner()
 
 
-Refactoring: Switched to a 2D array structure for direct access:
+Why it’s better:
 
-this._tiles[x][y]
+Matches standard JavaScript/TypeScript camelCase style.
 
+Improves consistency and makes the API more intuitive.
 
-Improvement:
+4 Inefficient tile lookup using .find()
 
-Avoids inefficient linear searches.
+Found at: Lines 74–91
 
-Better matches the logical structure of a board.
+Each tile was stored in a single array and searched linearly using .find() every time.
 
-Simplifies code and improves performance.
+How I improved it:
+Replaced the 1D list with a 2D array (this._tiles[x][y]) for direct access.
 
-(5) Smell #5: Hardcoded board dimension
+Why it’s better:
 
-Original lines: 76–80
+No need to iterate through all tiles → faster lookups.
 
-for (let i = 0; i < 3; i++)
+More natural and readable representation of the board.
 
+Simplifies the logic inside getTile() and addTile().
 
-Refactoring: Introduced a constant to define board size:
+5 Magic number for board size
+
+Found at: Lines 76–80
+
+The number 3 appeared in multiple places to define the board dimensions.
+
+How I improved it:
+Introduced a constant:
 
 const BOARD_SIZE = 3;
 
 
-Improvement:
+Why it’s better:
 
-Makes the size easy to modify in the future.
+Centralizes configuration in one place.
 
-Prevents repeated “magic numbers.”
+Makes scaling or modifying the board size effortless.
 
-Increases flexibility and readability.
+Prevents “magic numbers” and improves clarity.
