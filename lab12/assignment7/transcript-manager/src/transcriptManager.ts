@@ -1,5 +1,5 @@
 // manage the transcript database
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+ 
 export type StudentID = number;
 export type Student = { studentID: number; studentName: string };
 export type Course = string;
