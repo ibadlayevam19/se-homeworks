@@ -19,10 +19,13 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
+        working-directory: lab12/assignment7/transcript-manager
         run: npm install
 
       - name: Run ESLint
+        working-directory: lab12/assignment7/transcript-manager
         run: npm run lint
 
       - name: Run tests
+        working-directory: lab12/assignment7/transcript-manager
         run: npm test
