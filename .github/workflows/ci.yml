@@ -1,6 +1,8 @@
 name: CI
 
 on:
+  push:
+    branches: ["main", "master", "ci-test"]
   pull-request:
     branches: ["main", "master"]
 
